@@ -16,16 +16,16 @@ const UserSchema = new Schema(
       trim: true,
       //minlength: [6, 'password needs to be of 6 characters']
     },
-    verified: {
+    isVerified: {
       type: Boolean,
       defaultValue: false,
     },
-    passcode: Number,
+    passCode: Number,
     avatar: String,
-    userStatus: String, //paid or unpaid
+    hasPaid: Boolean,
     name: String,
     friends: [String],
-    userType: String, // teacher, user, admin
+    userType: String, // teacher, user
     stripeCustomerId: String,
   },
   { timestamps: true }

@@ -6,10 +6,7 @@ import { hashSync } from 'bcrypt-nodejs';
 import htmlEmail from '../util/emailHTML.js';
 
 export default {
-  signUp: async (
-    _,
-    { email, password, username, avatar, dateOfBirth, city, country }
-  ) => {
+  signUp: async (_, { email, password, username }) => {
     const user = await User.findOne({ email: email.toLowerCase() });
     let chance = new Chance();
     const passCode = chance.prime({ min: 1000, max: 9999 });
@@ -47,8 +44,9 @@ export default {
         email: email.toLowerCase(),
         password,
         name: username,
-        avatar,
-        verified: false,
+        avatar, //give em auto avatars
+        isVerified: false,
+        hasPaid: false,
       });
 
       userObject = {
@@ -127,14 +125,11 @@ export default {
   // forget password
   forgetPassword: async (_, { email }) => {
     const user = await User.findOne({ email: email.toLowerCase() });
-
     let chance = new Chance();
-
     if (!user) {
       return { token: null, user: null, errorMessage: 'User not found' };
     } else {
       let password = chance.prime({ min: 1000, max: 9999 });
-
       // create & set a new password
       // hash password
       await User.updateOne(
@@ -191,7 +186,6 @@ export default {
         errorMessage: 'Password and user do not match',
       };
     }
-
     return { token: user.createToken(), user, errorMessage: null };
   },
 
@@ -199,22 +193,6 @@ export default {
     let user = await User.findOne({ _id });
     return user;
   },
-
-  generateUniqueName: async () => {
-    let chance = new Chance();
-    let placeholder = 'someData';
-    let username = chance.word({ min: 1000, max: 9999 });
-    while (placeholder != null) {
-      let user = await User.findOne({ name: username });
-      if (user === null) {
-        placeholder = null;
-        return username;
-      } else {
-        user = await User.findOne({ name: username });
-      }
-    }
-  },
-};
 
 function validateEmail(email) {
   return String(email)
