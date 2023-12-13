@@ -11,7 +11,7 @@ const typeDefs = gql`
     friends: [String]
     createdAt: String
     userType: String
-    passCode: Number
+    passCode: Int
   }
 
   type Auth {

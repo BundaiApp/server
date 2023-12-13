@@ -193,6 +193,7 @@ export default {
     let user = await User.findOne({ _id });
     return user;
   },
+};
 
 function validateEmail(email) {
   return String(email)
