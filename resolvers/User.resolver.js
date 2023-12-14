@@ -20,31 +20,31 @@ export default {
     if (!user) {
       let checkMail = validateEmail(email);
 
-      if (checkMail) {
-        //send verification mail or verification code in phone number
-        let transporter = nodemailer.createTransport({
-          service: 'SendGrid',
-          auth: {
-            user: 'apikey',
-            pass: process.env.EMAIL_PASS,
-          },
-        });
+      //if (checkMail) {
+      //send verification mail or verification code in phone number
+      // let transporter = nodemailer.createTransport({
+      //   service: 'SendGrid',
+      //   auth: {
+      //     user: 'apikey',
+      //     pass: process.env.EMAIL_PASS,
+      //   },
+      // });
 
-        let options = {
-          from: ' Bundai <kaiyes.ansary@gmail.com>',
-          to: `${email}`, // list of receivers
-          subject: 'Please verify your email address', // Subject line
-          text: 'Please enter the number in the app to verify', // plain text body
-          html: htmlEmail(passCode),
-        };
-        await transporter.sendMail(options);
-      }
+      //   let options = {
+      //     from: ' Bundai <kaiyes.ansary@gmail.com>',
+      //     to: `${email}`, // list of receivers
+      //     subject: 'Please verify your email address', // Subject line
+      //     text: 'Please enter the number in the app to verify', // plain text body
+      //     html: htmlEmail(passCode),
+      //   };
+      //   await transporter.sendMail(options);
+      // }
 
       const user = await User.create({
         email: email.toLowerCase(),
         password,
         name: username,
-        avatar, //give em auto avatars
+        avatar: null, //give em auto avatars
         isVerified: false,
         hasPaid: false,
       });
