@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import { gql } from 'apollo-server-express'
 
 const typeDefs = gql`
   type User {
@@ -14,6 +14,18 @@ const typeDefs = gql`
     passCode: Int
   }
 
+  type FlashCard {
+    _id: String
+    kanjiName: String
+    hiragana: String
+    meanings: [String]
+    firstSeen: String
+    lastSeen: String
+    rating: Int
+    nextReview: String
+    quizAnswers: [String]
+  }
+
   type Auth {
     token: String
     user: User
@@ -22,6 +34,7 @@ const typeDefs = gql`
 
   type Query {
     me(_id: String!): User
+    pendingFlashCards: [FlashCard]
   }
 
   type Mutation {
@@ -31,7 +44,25 @@ const typeDefs = gql`
     updatePassword(id: String, password: String): Auth
     verify(passCode: String!, userId: String!): Auth
     resendVerification(userId: String!): Auth
-  }
-`;
 
-export default typeDefs;
+    addFlashCard(
+      kanjiName: String
+      hiragana: String
+      meanings: [String]
+      firstSeen: String
+      lastSeen: String
+      rating: Int
+      nextReview: String
+      quizAnswers: [String]
+    ): FlashCard
+
+    updateFlashCard(
+      kanjiName: String
+      lastSeen: String
+      rating: Int
+      nextReview: String
+    ): FlashCard
+  }
+`
+
+export default typeDefs
