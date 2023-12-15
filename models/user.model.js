@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
-import { hashSync, compareSync } from 'bcrypt-nodejs';
-import jwt from 'jsonwebtoken';
+import mongoose, { Schema } from 'mongoose'
+import { hashSync, compareSync } from 'bcrypt-nodejs'
+import jwt from 'jsonwebtoken'
 
 const UserSchema = new Schema(
   {
@@ -8,17 +8,17 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
       unique: true,
-      required: [true, 'Email is required'],
+      required: [true, 'Email is required']
     },
     password: {
       type: String,
       required: [true, 'password is required'],
-      trim: true,
+      trim: true
       //minlength: [6, 'password needs to be of 6 characters']
     },
     isVerified: {
       type: Boolean,
-      defaultValue: false,
+      defaultValue: false
     },
     passCode: Number,
     avatar: String,
@@ -26,30 +26,30 @@ const UserSchema = new Schema(
     name: String,
     friends: [String],
     userType: String, // teacher, user
-    stripeCustomerId: String,
+    stripeCustomerId: String
   },
   { timestamps: true }
-);
+)
 
 UserSchema.pre('save', function (next) {
   if (this.isModified('password')) {
-    this.password = this._hashPassword(this.password);
-    return next();
+    this.password = this._hashPassword(this.password)
+    return next()
   }
-  return next();
-});
+  return next()
+})
 
 UserSchema.methods = {
   _hashPassword(password) {
-    return hashSync(password);
+    return hashSync(password)
   },
   authenticateUser(password) {
-    return compareSync(password, this.password);
+    return compareSync(password, this.password)
   },
   createToken() {
-    console.log(process.env.JWT_SECRET);
-    return jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
-  },
-};
+    console.log('jwt secret: ->', process.env.JWT_SECRET)
+    return jwt.sign({ _id: this._id }, process.env.JWT_SECRET)
+  }
+}
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema)

@@ -1,39 +1,41 @@
-import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
-import jwt from 'jsonwebtoken';
+import express from 'express'
+import { ApolloServer } from 'apollo-server-express'
+import jwt from 'jsonwebtoken'
 
-import typeDefs from './typeDefs.js';
-import resolvers from './resolvers/index.js';
-import './config/db.js';
+import typeDefs from './typeDefs.js'
+import resolvers from './resolvers/index.js'
+import './config/db.js'
 
-const app = express();
-app.set('port', process.env.PORT);
+import 'dotenv/config'
+
+const app = express()
+app.set('port', process.env.PORT)
 
 app.use(async (req, res, next) => {
-  const token = req.headers.authorization;
+  const token = req.headers.authorization
   try {
-    const auth = await jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { _id: auth._id };
+    const auth = jwt.verify(token, process.env.JWT_SECRET)
+    req.user = { _id: auth._id }
   } catch (e) {
-    req.user = { _id: null };
+    req.user = { _id: null }
   }
-  next();
-});
+  next()
+})
 
 const context = async ({ req }) => {
-  let user = req.user;
-  return user;
-};
+  let user = req.user
+  return user
+}
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context,
-  introspection: true,
-});
+  introspection: true
+})
 
-server.applyMiddleware({ app });
+server.applyMiddleware({ app })
 
 app.listen(process.env.PORT || 3000, () =>
   console.log(`http://localhost:${app.get('port')}/graphql`)
-);
+)
