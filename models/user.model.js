@@ -47,7 +47,6 @@ UserSchema.methods = {
     return compareSync(password, this.password)
   },
   createToken() {
-    console.log('jwt secret: ->', process.env.JWT_SECRET)
     return jwt.sign({ _id: this._id }, process.env.JWT_SECRET)
   }
 }
