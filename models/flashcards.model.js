@@ -5,11 +5,11 @@ const FlashCardSchema = new Schema(
     kanjiName: String,
     hiragana: String,
     meanings: [String],
-    firstSeen: String,
-    lastSeen: String,
+    quizAnswers: [String],
     rating: Number,
-    nextReview: String,
-    quizAnswers: [String]
+    firstSeen: Date,
+    lastSeen: Date,
+    nextReview: Date
   },
   { timestamps: true }
 )

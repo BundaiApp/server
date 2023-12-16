@@ -19,11 +19,11 @@ const typeDefs = gql`
     kanjiName: String
     hiragana: String
     meanings: [String]
+    quizAnswers: [String]
     firstSeen: String
     lastSeen: String
-    rating: Int
     nextReview: String
-    quizAnswers: [String]
+    rating: Int
   }
 
   type Auth {
@@ -49,10 +49,6 @@ const typeDefs = gql`
       kanjiName: String
       hiragana: String
       meanings: [String]
-      firstSeen: String
-      lastSeen: String
-      rating: Int
-      nextReview: String
       quizAnswers: [String]
     ): FlashCard
 
