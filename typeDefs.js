@@ -16,6 +16,7 @@ const typeDefs = gql`
 
   type FlashCard {
     _id: String
+    userId: String
     kanjiName: String
     hiragana: String
     meanings: [String]
@@ -34,7 +35,7 @@ const typeDefs = gql`
 
   type Query {
     me(_id: String!): User
-    pendingFlashCards: [FlashCard]
+    pendingFlashCards(userId: String): [FlashCard]
   }
 
   type Mutation {
@@ -46,6 +47,7 @@ const typeDefs = gql`
     resendVerification(userId: String!): Auth
 
     addFlashCard(
+      userId: String
       kanjiName: String
       hiragana: String
       meanings: [String]
@@ -53,10 +55,11 @@ const typeDefs = gql`
     ): FlashCard
 
     updateFlashCard(
+      userId: String
       kanjiName: String
       lastSeen: String
-      rating: Int
       nextReview: String
+      rating: Int
     ): FlashCard
   }
 `
