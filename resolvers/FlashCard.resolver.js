@@ -21,7 +21,7 @@ export default {
     })
   },
 
-  pendingFlashCards: async (_, { userId }) => {
+  getPendingFlashCards: async (_, { userId }) => {
     return await FlashCards.find({
       userId,
       nextReview: { $lte: new Date().toISOString() }

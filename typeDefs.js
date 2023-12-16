@@ -35,7 +35,7 @@ const typeDefs = gql`
 
   type Query {
     me(_id: String!): User
-    pendingFlashCards(userId: String): [FlashCard]
+    getPendingFlashCards(userId: String): [FlashCard]
   }
 
   type Mutation {

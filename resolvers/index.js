@@ -4,7 +4,7 @@ import FlashCardResolver from './FlashCard.resolver.js'
 export default {
   Query: {
     me: UserResolver.me,
-    pendingFlashCards: FlashCardResolver.pendingFlashCards
+    getPendingFlashCards: FlashCardResolver.getPendingFlashCards
   },
   Mutation: {
     //auth
