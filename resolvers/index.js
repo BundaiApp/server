@@ -6,6 +6,7 @@ export default {
     me: UserResolver.me,
     getPendingFlashCards: FlashCardResolver.getPendingFlashCards
   },
+
   Mutation: {
     //auth
     signUp: UserResolver.signUp,

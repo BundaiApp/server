@@ -20,7 +20,6 @@ export default {
         firstSeen: new Date(),
         lastSeen: new Date(),
         nextReview: new Date()
-        //nextReview: new Date('Dec 25, 2023 01:15:00')
       })
     }
   },
@@ -34,7 +33,8 @@ export default {
           rating,
           lastSeen: new Date(),
           nextReview: new Date().setDate(
-            new Date().getDate() + reviewIntervals[rating]
+            new Date().getDate() +
+              reviewIntervals[rating > 6 ? 6 : rating < 1 ? 1 : rating]
           )
         }
       }
