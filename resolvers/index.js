@@ -14,6 +14,7 @@ export default {
     updatePassword: UserResolver.updatePassword,
 
     // FlashCard
-    addFlashCard: FlashCardResolver.addFlashCard
+    addFlashCard: FlashCardResolver.addFlashCard,
+    calculateNextReviewDate: FlashCardResolver.calculateNextReviewDate
   }
 }

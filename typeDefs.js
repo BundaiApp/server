@@ -54,11 +54,9 @@ const typeDefs = gql`
       quizAnswers: [String]
     ): FlashCard
 
-    updateFlashCard(
+    calculateNextReviewDate(
       userId: String
       kanjiName: String
-      lastSeen: String
-      nextReview: String
       rating: Int
     ): FlashCard
   }

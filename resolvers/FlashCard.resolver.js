@@ -25,6 +25,23 @@ export default {
     }
   },
 
+  calculateNextReviewDate: async (_, { userId, kanjiName, rating }) => {
+    const reviewIntervals = { 1: 1, 2: 2, 3: 7, 4: 14, 5: 30, 6: 120 }
+    return await FlashCards.updateOne(
+      { userId, kanjiName },
+      {
+        $set: {
+          rating,
+          lastSeen: new Date(),
+          nextReview: new Date().setDate(
+            new Date().getDate() + reviewIntervals[rating]
+          )
+        }
+      }
+    )
+  },
+
+  //query
   getPendingFlashCards: async (_, { userId }) => {
     return await FlashCards.find({
       userId,
@@ -32,5 +49,3 @@ export default {
     })
   }
 }
-
-//const reviewIntervals = { 1: 1, 2: 2, 3: 7, 4: 14, 5: 30, 6: 120 } // Days until next review
