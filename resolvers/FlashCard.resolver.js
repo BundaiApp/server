@@ -8,7 +8,6 @@ export default {
     const ifExists = await FlashCards.findOne({ userId, kanjiName })
 
     if (ifExists) {
-      console.log('exists')
       return
     } else {
       return await FlashCards.create({
