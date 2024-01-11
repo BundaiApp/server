@@ -5,13 +5,8 @@ let local = false
 let production = true
 
 if (local) {
-  console.log('local:', process.env.Local_Db)
-  mongoose.connect(process.env.Local_Db, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  mongoose.connect('mongodb://127.0.0.1:27017/bundai')
 } else if (production) {
-  //console.log('production: ', process.env.MONGO_URI)
   mongoose.connect(process.env.MONGO_URI, {
     dbName: process.env.DB_NAME,
     user: process.env.DB_USER,
