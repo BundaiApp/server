@@ -7,6 +7,7 @@ export default {
     _,
     { userId, kanjiName, hiragana, meanings, quizAnswers }
   ) => {
+    console.log(kanjiName)
     return await FlashCards.create({
       userId,
       kanjiName,
@@ -19,6 +20,24 @@ export default {
       nextReview: new Date()
       //nextReview: new Date('Dec 25, 2023 01:15:00')
     })
+  },
+
+  addBulkFlashCards: async (_, { userId, kanjis }) => {
+    console.log(userId, kanjis)
+    let modifiedKanjis = kanjis.map((item) => ({
+      userId,
+      ...item,
+      rating: 1,
+      firstSeen: new Date(),
+      lastSeen: new Date(),
+      nextReview: new Date()
+    }))
+
+    console.log(modifiedKanjis)
+
+    const result = await FlashCards.insertMany(modifiedKanjis)
+
+    return modifiedKanjis[0]
   },
 
   getPendingFlashCards: async (_, { userId }) => {

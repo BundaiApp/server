@@ -14,6 +14,13 @@ const typeDefs = gql`
     passCode: Int
   }
 
+  input QuizObject {
+    kanjiName: String
+    hiragana: String
+    meanings: [String]
+    quizAnswers: [String]
+  }
+
   type FlashCard {
     _id: String
     userId: String
@@ -61,6 +68,8 @@ const typeDefs = gql`
       nextReview: String
       rating: Int
     ): FlashCard
+
+    addBulkFlashCards(userId: String, kanjis: [QuizObject]): FlashCard
   }
 `
 
